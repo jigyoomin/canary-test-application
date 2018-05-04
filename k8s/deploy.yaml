@@ -1,0 +1,27 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: app-canary-0.0.1
+  labels:
+    app: app-canary
+    version: 0.0.1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-canary
+      version: 0.0.1
+  template:
+    metadata:
+      labels:
+        app: app-canary
+        version: 0.0.1
+    spec:
+      containers:
+      - name: app
+        image: earth1223/canary:0.0.1
+        ports:
+        - containerPort: 8080
+        imagePullPolicy: Always
+  strategy:
+    type: RollingUpdate 
